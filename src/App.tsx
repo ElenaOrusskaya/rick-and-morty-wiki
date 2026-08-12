@@ -13,6 +13,9 @@ function App() {
 
   return (
 <>
+<h1 className = "title">Rick & Morty 
+  <span className= "extra_title">WiKi</span>
+  </h1>
 <CharacterPage />
 </>
    /* <>

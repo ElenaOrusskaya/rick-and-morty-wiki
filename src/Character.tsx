@@ -48,9 +48,9 @@ export function Character({name, status, species, type, gender, origin, location
             <img src={image} alt="Изображение персонажа" className = "character_image"/>
             <span className={`status ${statusClass}`}>{status.toLowerCase()}</span>
             </div>
-            <p>Last seen: {' '}
+            <p className = "location">Last seen: {' '}
                 {isLocationUnkown ? (
-                    <span className = "uknown_style">Unknown</span>
+                    <span className = "unknown_location">Unknown</span>
                 ) : (
             <a className = "last-seen" href = {location.url}>{location.name}</a>
         )}
