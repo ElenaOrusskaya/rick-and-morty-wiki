@@ -1,54 +1,59 @@
-# React + TypeScript + Vite
+# 🧪 Rick & Morty Wiki App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern web application for exploring characters, episodes, and locations from the "Rick and Morty" universe, built with the official [Rick and Morty API](https://rickandmortyapi.com/).
 
-Currently, two official plugins are available:
+This project is built with a strong focus on **clean architecture**, **type safety**, and **responsive UI/UX**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Core:** React 18, TypeScript
+* **Styling:** SCSS Modules, CSS Variables, Fluid Typography (`clamp`)
+* **Routing:** React Router v6
+* **Build Tool:** Vite
+* **State & Persistence:** React Hooks (`useState`, `useEffect`), LocalStorage
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ✨ Key Features
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+* **Character Directory:** Pagination, search by name, and filtered results.
+* **Episode & Location Filtering:** Dynamic character fetching via custom `<Select />` dropdown components.
+* **Client-side Pagination:** Optimized data slicing for seamless navigation across character subsets.
+* **Responsive Layout:** Mobile-first layout adjustments ensuring zero horizontal overflow across mobile, tablet, and desktop viewports.
+* **State Persistence:** Automatic active page saving using `LocalStorage`.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+## 🛠️ Architecture Highlights
+
+* **Single Source of Truth:** Centralized data contracts (`CharacterType`, `EpisodeData`, `LocationData`) defined in `types.ts`.
+* **Reusable UI Components:** Modular `PageHeader`, `Select`, and `Pagination` components with strict prop typing.
+* **Scoped Styling:** SCSS Modules implementation preventing CSS class leakage and name collisions *(currently undergoing further refinements)*.
+
+---
+
+## 🚦 Quick Start
+
+### Prerequisites
+Make sure you have the following installed:
+* **Node.js** (v18.x or higher)
+* **npm** or **yarn**
+
+### Installation & Setup
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/elenaorowsski/rick-and-morty-wiki.git](https://github.com/elenaorowsski/rick-and-morty-wiki.git)
+   cd rick-and-morty-wiki
+
+2. Install dependencies:
+   ```bash
+   npm install
+
+3. Start the development server:
+   ```bash
+   npm run dev
+
+4. Open http://localhost:5173 in your browser.
