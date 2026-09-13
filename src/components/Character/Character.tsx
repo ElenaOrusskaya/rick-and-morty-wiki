@@ -1,21 +1,6 @@
-import { useState } from "react";
+import type { CharacterType } from '../../types';
 
-interface Origin {
-    name: string,
-    url: string
-}
-
-interface CardProps {
-    name: string,
-    status: string,
-    species: string,
-    type: string,
-    gender: string,
-    location: Origin,
-    image: string;
-}
-
-export function Character({name, status, species, location, image}: CardProps ) {
+export function Character({name, status, species, location, image}: CharacterType ) {
     const isLocationUnkown = location.name.toLowerCase() === 'unknown';
     const statusClass = status.toLowerCase();
 
