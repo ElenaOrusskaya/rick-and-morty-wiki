@@ -1,14 +1,15 @@
 import {useState, useEffect} from 'react';
-import {Character} from './Character';
-import { Pagination } from './Pagination';
-import {Search} from './components/Search';
+import {Character} from '../Character/Character';
+import { Pagination } from '../Pagination/Pagination';
+import {Search} from '../Search/Search';
+import styles from './CharacterPage.module.scss';
 
 interface ApiResponse {
     info: Info;
-    results: Results[];
+    results: CharacterType[];
 }
 
-interface Results {
+interface CharacterType {
     id: number;
     name: string;
     status: string,
@@ -52,7 +53,7 @@ export function CharacterPage() {
         fetch(api)
         .then((response) => {
             if (!response.ok) {
-                throw new Error('Character has not found')
+                throw new Error('Character not found')
             }
             return response.json(); })
         .then((res: ApiResponse) => {           
@@ -83,6 +84,7 @@ export function CharacterPage() {
 
     return (
         <>
+        <div className ={styles.titleContainer}><h1>Characters</h1></div>
         <Search 
         setSearch={setSearch}
         onSearchSubmit={handleSearchSubmit}

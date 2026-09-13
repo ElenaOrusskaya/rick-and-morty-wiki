@@ -1,0 +1,42 @@
+.selectContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+
+  .label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #00ff97;
+    text-shadow: 0 0 8px rgba(0, 255, 151, 0.4);
+  }
+
+  .select {
+    padding: 0.6rem 5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #272b33;
+    background-color: #ffffff;
+    border: 2px solid #B3E6FB;
+    border-radius: 12px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+
+    &:hover {
+      border-color: #B3E6FB;
+      box-shadow: 0 0 12px rgba(#B3E6FB, 0.8);
+    }
+
+    &:focus {
+      border-color: #B3E6FB;
+      box-shadow: 0 0 15px rgba(#B3E6FB, 0.5);
+    }
+
+    option {
+      background-color: #272b33;
+      color: #ffffff;
+    }
+  }
+}

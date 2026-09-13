@@ -1,0 +1,27 @@
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+    background-color: #B3E6FB;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+    padding: 5px 20px;
+} 
+
+.titleContainer {
+        display: flex;
+        align-items: center;
+    }
+
+.extraTitle {
+    color: #fff;
+}
+
+    @media(max-width: 768px) {
+        .headerContainer {
+            width: 100%;
+        }
+
+        .titleContainer {
+            font-size: 12px;
+        }
+    }

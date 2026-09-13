@@ -3,9 +3,12 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 */
 import './App.scss';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
-
-import { CharacterPage } from './CharacterPage';
+import { CharacterPage } from './components/CharacterPage/CharacterPage';
+import {Header} from './components/Header/Header';
+import { Episodes } from './Pages/Episodes/Episodes';
+import {Location} from './Pages/Location/Location';
 
 
 function App() {
@@ -13,10 +16,15 @@ function App() {
 
   return (
 <>
-<h1 className = "title">Rick & Morty 
-  <span className= "extra_title">WiKi</span>
-  </h1>
-<CharacterPage />
+<BrowserRouter>
+  <Header />
+
+  <Routes>
+    <Route path = "/" element = {<CharacterPage />} />
+    <Route path = "/episodes" element = {<Episodes />} />
+    <Route path = "/location" element = {<Location />} />
+  </Routes>
+</BrowserRouter>
 </>
    /* <>
       <div>
