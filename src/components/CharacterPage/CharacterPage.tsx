@@ -2,37 +2,12 @@ import {useState, useEffect} from 'react';
 import {Character} from '../Character/Character';
 import { Pagination } from '../Pagination/Pagination';
 import {Search} from '../Search/Search';
+import type { CharacterType, ApiInfo } from '../../types';
 import styles from './CharacterPage.module.scss';
 
 interface ApiResponse {
-    info: Info;
-    results: CharacterType[];
-}
-
-interface CharacterType {
-    id: number;
-    name: string;
-    status: string,
-    species: string,
-    type: string ,
-    gender: string,
-    origin: {
-        name: string,
-        url: string
-      },
-    location: {
-        name: string,
-        url: string
-      },
-    image: string,
-    episode: string[]
-}
-
-interface Info {
-    count: number;  
-    pages: number;  
-    next: string | null;
-    prev: string | null;
+  info: ApiInfo;
+  results: CharacterType[];
 }
 
 export function CharacterPage() {
@@ -99,16 +74,7 @@ export function CharacterPage() {
           {results.map((character) => 
           <li key={character.id} className="character-item">
             <Character 
-                id = {character.id}
-                name = {character.name}
-                status = {character.status}
-                species = {character.species}
-                type = {character.type}
-                gender = {character.gender}
-                origin = {character.origin}
-                location = {character.location}
-                image = {character.image}
-                episode = {character.episode}
+               {...character}
             />
           </li>
           )}

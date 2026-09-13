@@ -3,33 +3,7 @@ import {Character} from '../../components/Character/Character';
 import {Select} from '../../components/Select/Select';
 import { Pagination } from '../../components/Pagination/Pagination';
 import pageStyles from '../pages.module.scss';
-
-interface EpisodeData {
-    id: number;
-    name: string;
-    air_date: string,
-    episode: number,
-    characters: string[];
-}
-
-interface CharacterType {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  image: string;
-  episode: string[];
-}
+import type { EpisodeData, CharacterType } from '../../types';
 
 export function Episodes() {
     const [episodeId, setEpisodeId] = useState<number>(1);
@@ -114,16 +88,7 @@ export function Episodes() {
                   {currentResults.map((character) => 
                   <li key={character.id} className="character-item">
                     <Character 
-                        id = {character.id}
-                        name = {character.name}
-                        status = {character.status}
-                        species = {character.species}
-                        type = {character.type}
-                        gender = {character.gender}
-                        origin = {character.origin}
-                        location = {character.location}
-                        image = {character.image}
-                        episode = {character.episode}
+                        {...character}
                     />
                   </li>
                   )}
