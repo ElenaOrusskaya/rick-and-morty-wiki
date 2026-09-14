@@ -37,7 +37,7 @@ export function Episodes() {
          .then((res: EpisodeData) => {           
             setData(res);
     const characterIds = res.characters
-        .map((url) => url.split('/').pop())
+        .map((url: string) => url.split('/').pop())
         .join(',');
 
     if (!characterIds) return [];

@@ -2,34 +2,8 @@ import {useState, useEffect} from 'react';
 import {Select} from '../../components/Select/Select';
 import {Character} from '../../components/Character/Character';
 import { Pagination } from '../../components/Pagination/Pagination';
+import type { LocationData, CharacterType } from '../../types';
 import pageStyles from '../pages.module.scss';
-
-interface LocationData {
-    id: number;
-    name: string;
-    type: string;
-    dimension: string;
-    residents: string[];
-}
-
-interface CharacterType {
-  id: number;
-  name: string;
-  status: string;
-  species: string;
-  type: string;
-  gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
-  image: string;
-  episode: string[];
-}
 
 export function Location() {
     const [locationId, setLocationId] = useState<number>(1);
@@ -63,7 +37,7 @@ export function Location() {
         .then((res: LocationData) => {
             setData(res);
 
-        const residentsId = res.residents.map((url) => url.split('/').pop()).join(",");
+        const residentsId = res.residents.map((url: string) => url.split('/').pop()).join(",");
         if (!residentsId) return [];
 
         return fetch(`https://rickandmortyapi.com/api/character/${residentsId}`)
@@ -116,16 +90,7 @@ export function Location() {
                           {currentResults.map((character) => 
                           <li key={character.id} className="character-item">
                             <Character 
-                                id = {character.id}
-                                name = {character.name}
-                                status = {character.status}
-                                species = {character.species}
-                                type = {character.type}
-                                gender = {character.gender}
-                                origin = {character.origin}
-                                location = {character.location}
-                                image = {character.image}
-                                episode = {character.episode}
+                                {...character}
                             />
                           </li>
                           )}
