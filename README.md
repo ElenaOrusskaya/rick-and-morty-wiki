@@ -6,6 +6,13 @@ This project is built with a strong focus on **clean architecture**, **type safe
 
 ---
 
+## 🔗 Live Demo
+
+🚀 **[View Live Application](https://elenaorowsski.github.io/rick-and-morty-wiki/)**
+
+---
+
+
 ## 🚀 Tech Stack
 
 * **Core:** React 18, TypeScript
