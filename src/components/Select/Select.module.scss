@@ -4,6 +4,9 @@
   justify-content: center;
   gap: 1rem;
   margin-bottom: 2.5rem;
+  align-self: center;
+  flex-shrink: 1;
+  min-width: 0;
 
   .label {
     font-size: 1.1rem;
@@ -13,7 +16,10 @@
   }
 
   .select {
-    padding: 0.6rem 5rem;
+    width: 280px;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0.6rem 1rem;
     font-size: 1rem;
     font-weight: 600;
     color: #272b33;

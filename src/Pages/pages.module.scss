@@ -1,7 +1,11 @@
 .pageHeaderContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  min-height: 150px;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .titleContainer {
@@ -9,7 +13,6 @@
   flex-direction: column;
   align-items: start;
   text-align: start;
-  margin-bottom: 2rem;
 
   h1 {
     font-size: 1.8rem;
