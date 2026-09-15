@@ -28,6 +28,11 @@
   }
 }
 
+.selectorMessage {
+  align-self: center;
+  color: #6e798c;
+}
+
 @media (max-width: 768px) {
   .pageHeaderContainer {
     flex-direction: column;

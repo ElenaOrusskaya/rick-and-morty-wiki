@@ -2,11 +2,13 @@ import {useState, useEffect} from 'react';
 import {Select} from '../../components/Select/Select';
 import {Character} from '../../components/Character/Character';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { useResourceCount } from '../../hooks/useResourceCount';
 import type { LocationData, CharacterType } from '../../types';
 import pageStyles from '../pages.module.scss';
 
 export function Location() {
     const [locationId, setLocationId] = useState<number>(1);
+    const { count: totalLocations, error: optionsError } = useResourceCount('location');
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [data, setData] = useState<LocationData | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -84,12 +86,18 @@ export function Location() {
             <p>Type: {data?.type || "Unknown"}</p>
         </div>
 
-        <Select 
-        name = "Location"
-        total = {126}
-        value = {locationId}
-        onChange={(newId) => setLocationId(newId)}
-        />
+        {totalLocations === null ? (
+            <p className={pageStyles.selectorMessage} role={optionsError ? 'alert' : 'status'}>
+                {optionsError ?? 'Loading locations...'}
+            </p>
+        ) : (
+            <Select
+                name="Location"
+                total={totalLocations}
+                value={locationId}
+                onChange={(newId) => setLocationId(newId)}
+            />
+        )}
         </div>
         <div className = "content_container">
                         {isLoading ? (

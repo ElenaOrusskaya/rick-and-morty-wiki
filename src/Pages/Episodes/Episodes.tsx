@@ -2,11 +2,13 @@ import {useState, useEffect} from 'react';
 import {Character} from '../../components/Character/Character';
 import {Select} from '../../components/Select/Select';
 import { Pagination } from '../../components/Pagination/Pagination';
+import { useResourceCount } from '../../hooks/useResourceCount';
 import pageStyles from '../pages.module.scss';
 import type { EpisodeData, CharacterType } from '../../types';
 
 export function Episodes() {
     const [episodeId, setEpisodeId] = useState<number>(1);
+    const { count: totalEpisodes, error: optionsError } = useResourceCount('episode');
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [data, setData] = useState<EpisodeData | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -82,12 +84,18 @@ export function Episodes() {
        <p>Air date: {data?.air_date || "Unknown"}</p>
         </div>
         
-            <Select 
-            name="Episode"
-            total={51}
-            value={episodeId}
-            onChange={(newId) => setEpisodeId(newId)}
-  />
+            {totalEpisodes === null ? (
+                <p className={pageStyles.selectorMessage} role={optionsError ? 'alert' : 'status'}>
+                    {optionsError ?? 'Loading episodes...'}
+                </p>
+            ) : (
+                <Select
+                    name="Episode"
+                    total={totalEpisodes}
+                    value={episodeId}
+                    onChange={(newId) => setEpisodeId(newId)}
+                />
+            )}
        </div>
         <div className = "content_container">
                 {isLoading ? (
