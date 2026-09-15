@@ -15,9 +15,9 @@ This project is built with a strong focus on **clean architecture**, **type safe
 
 ## 🚀 Tech Stack
 
-* **Core:** React 18, TypeScript
+* **Core:** React 19, TypeScript
 * **Styling:** SCSS Modules, CSS Variables, Fluid Typography (`clamp`)
-* **Routing:** React Router v6
+* **Routing:** React Router v7
 * **Build Tool:** Vite
 * **State & Persistence:** React Hooks (`useState`, `useEffect`), LocalStorage
 

@@ -15,13 +15,22 @@ export function CharacterPage() {
     const [data, setData] = useState<ApiResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [pageNumber, setPageNumber] = useState<number>(() => {
-        const savedPage = localStorage.getItem('character_page');
-        return savedPage ? Number(savedPage) : 1;
+        const savedPage = Number(localStorage.getItem('character_page'));
+        return Number.isInteger(savedPage) && savedPage > 0 ? savedPage : 1;
     });
     const [search, setSearch] = useState("");
     const [submittedSearch, setSubmittedSearch] = useState("");
     
-    const api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${submittedSearch}`;
+    const params = new URLSearchParams({ page: String(pageNumber) });
+    if (submittedSearch) {
+        params.set('name', submittedSearch);
+    }
+    const api = `https://rickandmortyapi.com/api/character/?${params.toString()}`;
+
+    useEffect(() => {
+        localStorage.setItem('character_page', String(pageNumber));
+    }, [pageNumber]);
+
     useEffect(() => {
         const controller = new AbortController();
 
@@ -58,12 +67,11 @@ export function CharacterPage() {
 
     const handlePageChange = (page: number) => {
         setPageNumber(page);
-        localStorage.setItem('character_page', String(page));
         window.scrollTo({top: 0, behavior: 'auto'});
     }
 
     const handleSearchSubmit = () => {
-        setSubmittedSearch(search);
+        setSubmittedSearch(search.trim());
         setPageNumber(1);
     }
 
