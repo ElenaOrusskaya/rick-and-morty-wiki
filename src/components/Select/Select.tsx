@@ -1,4 +1,4 @@
-import type { ChangeEvent } from 'react';
+import { useId, type ChangeEvent } from 'react';
 import styles from './Select.module.scss';
 
 interface SelectProps {
@@ -9,9 +9,12 @@ interface SelectProps {
 }
 
 export function Select ({total, name, value, onChange}: SelectProps) {
+    const selectId = useId();
 return (
     <div className={styles.selectContainer}>
+    <label className={styles.label} htmlFor={selectId}>Choose {name.toLowerCase()}</label>
     <select 
+    id={selectId}
     className={styles.select}
     value={value}
     onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(Number(e.target.value))}

@@ -7,11 +7,11 @@ export function Header() {
         <>
         <header className= {styles.headerContainer}>
             <div className = {styles.titleContainer}>
-                <h1 className = {styles.title}>
+                <div className = {styles.title}>
                     <Link to="/">Rick&Morty 
                     <span className= {styles.extraTitle}>WiKi</span>
                     </Link>
-                </h1>
+                </div>
             </div>
         <Navigation />
         </header>

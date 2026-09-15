@@ -4,7 +4,7 @@ import styles from './Navigation.module.scss';
 export function Navigation() {
 return (
     <>
-    <nav className = {styles.navContainer}>
+    <nav className = {styles.navContainer} aria-label="Main navigation">
         <ul className = {styles.navList}>
             <li className = "nav_item">
                 <NavLink 

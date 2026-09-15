@@ -99,9 +99,9 @@ export function Episodes() {
        </div>
         <div className = "content_container">
                 {isLoading ? (
-                    <div className="loading-spinner"></div>
+                    <div className="loading-spinner" role="status" aria-label="Loading episode and characters"></div>
                 ) : error ? (
-                <div className="not-found-message">{error}</div>
+                <div className="not-found-message" role="alert">{error}</div>
             ) : (
                 <ul className="character-list">
                   {currentResults.map((character) => 

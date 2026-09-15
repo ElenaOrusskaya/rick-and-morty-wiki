@@ -13,16 +13,18 @@ export function Pagination ({
     const pages = Array.from({length: totalPages}, (_, index) => index + 1);
 
     return (
-        <div className = "nav">
+        <nav className = "nav" aria-label="Pagination">
             {pages.map((page) => (
                 <button
                 key={page}
-                type="button"
-                onClick={() => onPageChange(page)}
-                disabled={page === currentPage}>
+                 type="button"
+                 onClick={() => onPageChange(page)}
+                 aria-label={`Page ${page}`}
+                 aria-current={page === currentPage ? 'page' : undefined}
+                 disabled={page === currentPage}>
                     {page}
                     </button>
             ))}
-        </div>
+        </nav>
     )
 }

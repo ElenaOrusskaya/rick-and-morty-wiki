@@ -15,12 +15,16 @@ export function Search ({setSearch, onSearchSubmit, search}: searchProps) {
     return (
         <>
         <form className ={styles.formContainer} onSubmit={handleSubmit}>
+            <div className={styles.searchField}>
+            <label className={styles.searchLabel} htmlFor="character-search">Character name</label>
             <input 
+            id="character-search"
             value = {search}
             onChange = {(e) => {
                 setSearch(e.target.value)}}
             placeholder= "Search for Characters" type="text" className={styles.formInput}></input>
-            <button type="submit" className={styles.formButton}>search</button>
+            </div>
+            <button type="submit" className={styles.formButton}>Search</button>
         </form>
         </>
     );

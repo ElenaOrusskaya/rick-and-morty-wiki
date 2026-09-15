@@ -1,66 +1,43 @@
-# 🧪 Rick & Morty Wiki App
+# Rick & Morty Wiki
 
-A modern web application for exploring characters, episodes, and locations from the "Rick and Morty" universe, built with the official [Rick and Morty API](https://rickandmortyapi.com/).
+A React app for browsing characters, episodes, and locations from the [Rick and Morty API](https://rickandmortyapi.com/).
 
-This project is built with a strong focus on **clean architecture**, **type safety**, and **responsive UI/UX**.
+## Live demo
 
----
+[Open the app](https://elenaorowsski.github.io/rick-and-morty-wiki/)
 
-## 🔗 Live Demo
+## Features
 
-🚀 **[View Live Application](https://elenaorowsski.github.io/rick-and-morty-wiki/)**
+- Browse characters by page and search by name. The character page number is saved in `localStorage` and restored on reload; submitting a search returns to page 1.
+- Choose an episode or location to see its characters or residents. Long lists are split into pages.
+- Use the app on phones, tablets, and desktop screens.
 
----
+## Built with
 
+React 19, TypeScript, React Router 7, Vite, and SCSS. Component-specific styles use CSS Modules; shared styles live in `App.scss` and `index.css`.
 
-## 🚀 Tech Stack
+## Run locally
 
-* **Core:** React 19, TypeScript
-* **Styling:** SCSS Modules, CSS Variables, Fluid Typography (`clamp`)
-* **Routing:** React Router v7
-* **Build Tool:** Vite
-* **State & Persistence:** React Hooks (`useState`, `useEffect`), LocalStorage
+You need Node.js 20 or newer and npm. React Router 7 requires Node.js 20 or newer.
 
----
+```bash
+git clone https://github.com/ElenaOrusskaya/rick-and-morty-wiki.git
+cd rick-and-morty-wiki
+npm ci
+npm run dev
+```
 
-## ✨ Key Features
+Open the URL printed by Vite, typically `http://localhost:5173/rick-and-morty-wiki/`.
 
-* **Character Directory:** Pagination, search by name, and filtered results.
-* **Episode & Location Filtering:** Dynamic character fetching via custom `<Select />` dropdown components.
-* **Client-side Pagination:** Optimized data slicing for seamless navigation across character subsets.
-* **Responsive Layout:** Mobile-first layout adjustments ensuring zero horizontal overflow across mobile, tablet, and desktop viewports.
-* **State Persistence:** Automatic active page saving using `LocalStorage`.
+## Check the project
 
----
+```bash
+npm run lint
+npm run build
+```
 
-## 🛠️ Architecture Highlights
+The app needs a network connection to load data from the Rick and Morty API.
 
-* **Single Source of Truth:** Centralized data contracts (`CharacterType`, `EpisodeData`, `LocationData`) defined in `types.ts`.
-* **Reusable UI Components:** Modular `PageHeader`, `Select`, and `Pagination` components with strict prop typing.
-* **Scoped Styling:** SCSS Modules implementation preventing CSS class leakage and name collisions *(currently undergoing further refinements)*.
+## Publish to GitHub Pages
 
----
-
-## 🚦 Quick Start
-
-### Prerequisites
-Make sure you have the following installed:
-* **Node.js** (v18.x or higher)
-* **npm** or **yarn**
-
-### Installation & Setup
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/elenaorowsski/rick-and-morty-wiki.git](https://github.com/elenaorowsski/rick-and-morty-wiki.git)
-   cd rick-and-morty-wiki
-
-2. Install dependencies:
-   ```bash
-   npm install
-
-3. Start the development server:
-   ```bash
-   npm run dev
-
-4. Open http://localhost:5173 in your browser.
+`npm run deploy` builds the app and publishes `dist` through `gh-pages`. The Vite base path matches the GitHub repository name: `/rick-and-morty-wiki/`.
