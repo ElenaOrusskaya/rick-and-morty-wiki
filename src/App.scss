@@ -57,7 +57,7 @@
   margin: 0;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 280px));
+  grid-template-columns: repeat(auto-fill, min(100%, 280px));
   gap: 24px;
 
   align-items: start;
@@ -97,6 +97,7 @@
 
 .character_image {
   width: 100%; 
+  box-sizing: border-box;
   object-fit: cover;
   border-radius: 8px;
   border: 2px solid #C21121;
@@ -187,4 +188,3 @@
     }
   }
 }
-

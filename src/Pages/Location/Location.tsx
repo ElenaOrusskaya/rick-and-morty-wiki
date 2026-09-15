@@ -23,45 +23,56 @@ export function Location() {
     const api = `https://rickandmortyapi.com/api/location/${locationId}`;
 
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        setCurrentPage(1);
+        const controller = new AbortController();
 
-        fetch(api)
-        .then((response) => {
-            if(!response.ok) {
-                throw new Error ('Location not found');
+        const loadLocation = async () => {
+            setIsLoading(true);
+            setError(null);
+            setCurrentPage(1);
+
+            try {
+                const response = await fetch(api, { signal: controller.signal });
+                if (!response.ok) {
+                    throw new Error('Location not found');
+                }
+
+                const location: LocationData = await response.json();
+                const residentIds = location.residents
+                    .map((url) => url.split('/').pop())
+                    .join(',');
+
+                let residents: CharacterType[] = [];
+                if (residentIds) {
+                    const charRes = await fetch(
+                        `https://rickandmortyapi.com/api/character/${residentIds}`,
+                        { signal: controller.signal },
+                    );
+                    if (!charRes.ok) {
+                        throw new Error('Failed to fetch residents');
+                    }
+
+                    const residentData: CharacterType | CharacterType[] = await charRes.json();
+                    residents = Array.isArray(residentData) ? residentData : [residentData];
+                }
+
+                if (controller.signal.aborted) return;
+
+                setData(location);
+                setResults(residents);
+                setIsLoading(false);
+            } catch (err) {
+                if (controller.signal.aborted) return;
+
+                setData(null);
+                setResults([]);
+                setError(err instanceof Error ? err.message : 'Failed to fetch location');
+                setIsLoading(false);
             }
-                return response.json();
-        })
-        .then((res: LocationData) => {
-            setData(res);
+        };
 
-        const residentsId = res.residents.map((url: string) => url.split('/').pop()).join(",");
-        if (!residentsId) return [];
-
-        return fetch(`https://rickandmortyapi.com/api/character/${residentsId}`)
-        .then((charRes) => {
-            if (!charRes.ok) {
-                throw new Error('Failed to fetch residents') 
-            }
-            return charRes.json();
-        });
-})
-       .then((charactersData: CharacterType | CharacterType[] | []) => {
-        const normalizedData = Array.isArray(charactersData) ? charactersData : [charactersData];
-
-        setResults(normalizedData);
-        setIsLoading(false);
-       })
-
-       .catch((err: Error) => {
-        setData(null);
-        setResults([]);
-        setError(err.message);
-        setIsLoading(false);
-       });
-}, [api])
+        void loadLocation();
+        return () => controller.abort();
+    }, [api]);
     
 
     return (

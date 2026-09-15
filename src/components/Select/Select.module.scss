@@ -46,3 +46,11 @@
     }
   }
 }
+
+@media (max-width: 768px) {
+  .selectContainer {
+    align-self: stretch;
+    justify-content: flex-start;
+    margin-bottom: 0;
+  }
+}

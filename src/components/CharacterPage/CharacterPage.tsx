@@ -23,25 +23,35 @@ export function CharacterPage() {
     
     const api = `https://rickandmortyapi.com/api/character/?page=${pageNumber}&name=${submittedSearch}`;
     useEffect(() => {
-        setIsLoading(true);
-        setError(null);
-        fetch(api)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Character not found')
+        const controller = new AbortController();
+
+        const loadCharacters = async () => {
+            setIsLoading(true);
+            setError(null);
+
+            try {
+                const response = await fetch(api, { signal: controller.signal });
+                if (!response.ok) {
+                    throw new Error('Character not found');
+                }
+
+                const res: ApiResponse = await response.json();
+                if (controller.signal.aborted) return;
+
+                setData(res);
+                setIsLoading(false);
+            } catch (err) {
+                if (controller.signal.aborted) return;
+
+                setData(null);
+                setError(err instanceof Error ? err.message : 'Failed to fetch characters');
+                setIsLoading(false);
             }
-            return response.json(); })
-        .then((res: ApiResponse) => {           
-            setData(res);
-            setIsLoading(false);
-        })
-        .catch((err: Error) => {
-            setData(null);
-            setError(err.message);
-            setIsLoading(false);
-        });
-    }, [api]
-    );
+        };
+
+        void loadCharacters();
+        return () => controller.abort();
+    }, [api]);
 
     const info = data?.info;
     const results = data?.results || [];

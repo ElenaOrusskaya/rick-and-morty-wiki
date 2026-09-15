@@ -22,45 +22,56 @@ export function Episodes() {
 
     const api = `https://rickandmortyapi.com/api/episode/${episodeId}`;
 
-    useEffect (() => {
-        setIsLoading(true);
-        setError(null);
-        setCurrentPage(1);
+    useEffect(() => {
+        const controller = new AbortController();
 
-        fetch(api)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Episode not found')
+        const loadEpisode = async () => {
+            setIsLoading(true);
+            setError(null);
+            setCurrentPage(1);
+
+            try {
+                const response = await fetch(api, { signal: controller.signal });
+                if (!response.ok) {
+                    throw new Error('Episode not found');
+                }
+
+                const episode: EpisodeData = await response.json();
+                const characterIds = episode.characters
+                    .map((url) => url.split('/').pop())
+                    .join(',');
+
+                let characters: CharacterType[] = [];
+                if (characterIds) {
+                    const charRes = await fetch(
+                        `https://rickandmortyapi.com/api/character/${characterIds}`,
+                        { signal: controller.signal },
+                    );
+                    if (!charRes.ok) {
+                        throw new Error('Failed to fetch characters');
+                    }
+
+                    const characterData: CharacterType | CharacterType[] = await charRes.json();
+                    characters = Array.isArray(characterData) ? characterData : [characterData];
+                }
+
+                if (controller.signal.aborted) return;
+
+                setData(episode);
+                setResults(characters);
+                setIsLoading(false);
+            } catch (err) {
+                if (controller.signal.aborted) return;
+
+                setData(null);
+                setResults([]);
+                setError(err instanceof Error ? err.message : 'Failed to fetch episode');
+                setIsLoading(false);
             }
-            return response.json();
-        })
-         .then((res: EpisodeData) => {           
-            setData(res);
-    const characterIds = res.characters
-        .map((url: string) => url.split('/').pop())
-        .join(',');
+        };
 
-    if (!characterIds) return [];
-
-    return fetch(`https://rickandmortyapi.com/api/character/${characterIds}`)
-        .then((charRes) => {
-        if (!charRes.ok) throw new Error('Failed to fetch characters');
-        return charRes.json();
-    });
-})
-        .then((charactersData: CharacterType | CharacterType[] | []) => {
-            const normalizedData = Array.isArray(charactersData) 
-                ? charactersData 
-                : [charactersData];
-            setResults(normalizedData);
-            setIsLoading(false);
-        })
-        .catch((err: Error) => {
-            setData(null);
-            setResults([]);
-            setError(err.message);
-            setIsLoading(false);
-        });
+        void loadEpisode();
+        return () => controller.abort();
     }, [api]);
 
     return (
